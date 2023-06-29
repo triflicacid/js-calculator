@@ -13,6 +13,10 @@ body {
     align-items: center;
 }
 
+[hidden] {
+    display: none !important;
+}
+
 main {
     display: flex;
     align-items: center;
@@ -25,6 +29,13 @@ main {
     background-color: #2C2C2C;
     color: white;
     font-family: Arial;
+}
+
+section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 #input {
@@ -42,6 +53,10 @@ main {
     outline: none;
     padding: 5px;
     border: 2px solid black;
+}
+
+button.selected {
+    background-color: #993333;
 }
 
 .input:not(.error) {

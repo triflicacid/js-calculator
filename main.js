@@ -332,6 +332,71 @@ function calculate() {
     eOutput.insertAdjacentText("beforeend", val);
 }
 
+// Refresh the variable table in the "Variables" tab
+function refreshVariableTable(container) {
+    container.innerHTML = "";
+    const table = document.createElement("table");
+    const thead = table.createTHead();
+    thead.insertAdjacentHTML("beforeend", "<tr><th>Name</th><th colspan='2'>Value</th></tr>");
+    const tbody = table.createTBody();
+    const names = Array.from(symbols.keys()).sort();
+    for (const name of names) {
+        const row = document.createElement("tr");
+        let td = document.createElement("td");
+        td.innerText = name;
+        row.appendChild(td);
+        td = document.createElement("td");
+        const input = document.createElement("input");
+        input.type = "number";
+        input.classList.add("input");
+        input.value = symbols.get(name);
+        td.appendChild(input);
+        input.addEventListener("change", () => {
+            symbols.set(name, +input.value.trim());
+            input.value = symbols.get(name);
+        });
+        row.appendChild(td);
+        td = document.createElement("td");
+        const del = document.createElement("button");
+        del.classList.add("input", "selected");
+        del.innerHTML = "&nbsp;&#x1f5d1;&nbsp;";
+        del.addEventListener("click", () => {
+            symbols.delete(name);
+            row.remove();
+        });
+        td.appendChild(del);
+        row.appendChild(td);
+        tbody.appendChild(row);
+    }
+    const tfoot = table.createTFoot();
+    let row = document.createElement("tr");
+    let td = document.createElement("td");
+    td.setAttribute("colspan", "3");
+    const create = document.createElement("button");
+    create.addEventListener("click", () => {
+        const symbol = prompt("Enter variable name");
+        if (!symbol) return;
+        if (symbols.has(symbol)) {
+            alert("Symbol already exists");
+            return;
+        }
+        for (const char of symbol) {
+            if (!symbolChars.includes(char)) {
+                alert(`Invalid symbol: invalid character '${char}'`);
+                return;
+            }
+        }
+        symbols.set(symbol, 0);
+        refreshVariableTable(container);
+    });
+    create.innerText = "Create New";
+    td.appendChild(create);
+    row.appendChild(td);
+    tfoot.appendChild(row);
+    container.appendChild(table);
+}
+
+/* ========== Entry ========== */
 const eBaseIn = document.getElementById("base-in");
 const eBaseOut = document.getElementById("base-out");
 let baseIn = +eBaseIn.value, baseOut = +eBaseOut.value, reTokenize = false;
@@ -387,3 +452,24 @@ eButton.addEventListener("click", () => {
     calculate();
 });
 
+const sections = Array.from(document.getElementsByTagName("section"));
+const buttons = Array.from(document.querySelectorAll("button.nav"));
+for (const section of sections) {
+    const name = section.dataset.name;
+    section.setAttribute("hidden", "hidden");
+    const btn = buttons.find(e => e.dataset.name === name);
+    btn.addEventListener("click", () => {
+        for (const subsection of sections) subsection.setAttribute("hidden", "hidden");
+        for (const btn of buttons) btn.classList.remove("selected");
+        section.removeAttribute("hidden");
+        btn.classList.add("selected");
+
+        if (name === "variables") refreshVariableTable(section);
+    });
+}
+
+{
+    let name = "calculator";
+    document.querySelector("section[data-name='" + name + "']").removeAttribute("hidden");
+    document.querySelector("button.nav[data-name='" + name + "']").classList.add("selected");
+}
