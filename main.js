@@ -9,10 +9,11 @@ const MAX_DP = 15;
 /** Operator precedence */
 const precedence = {
     "^": 1,
-    "*": 2, "/": 2, "%": 3,
-    "+": 3, "-": 3,
-    "(": 4,
-    "=": 5, 
+    "<": 2, ">": 2, "<=": 2, ">=": 2, "==": 2, "!=": 2,
+    "*": 3, "/": 3, "%": 3,
+    "+": 4, "-": 4,
+    "(": 5,
+    "=": 6, 
 };
 
 // Token types
@@ -43,6 +44,12 @@ function performOperation(op, a, b) {
         case "%": return a % b;
         case "+": return a + b;
         case "-": return a - b;
+        case "<": return a < b ? 1 : 0;
+        case "<=": return a <= b ? 1 : 0;
+        case ">": return a > b ? 1 : 0;
+        case ">=": return a >= b ? 1 : 0;
+        case "==": return a == b ? 1 : 0;
+        case "!=": return a != b ? 1 : 0;
         default: throw new Error(`Unknown operator '${op}'`);
     }
 }
@@ -396,6 +403,25 @@ function refreshVariableTable(container) {
     container.appendChild(table);
 }
 
+function populateOperatorTable(container) {
+    container.innerHTML = "";
+    const table = document.createElement("table");
+    container.appendChild(table);
+    const thead = table.createTHead();
+    thead.insertAdjacentHTML("beforeend", "<tr><th>Operator</th><th>Precedence</th></tr>");
+    const tbody = table.createTBody();
+    for (const op in precedence) {
+        const row = document.createElement("tr");
+        let td = document.createElement("td");
+        td.innerText = op;
+        row.appendChild(td);
+        td = document.createElement("td");
+        td.innerText = precedence[op].toString();
+        row.appendChild(td);
+        tbody.appendChild(row);
+    }
+}
+
 /* ========== Entry ========== */
 const eBaseIn = document.getElementById("base-in");
 const eBaseOut = document.getElementById("base-out");
@@ -467,6 +493,8 @@ for (const section of sections) {
         if (name === "variables") refreshVariableTable(section);
     });
 }
+
+populateOperatorTable(document.querySelector("section[data-name='operators']"));
 
 {
     let name = "calculator";
