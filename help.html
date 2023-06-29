@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator - Help</title>
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <p>This calculator supports basic arithmetic in any base.</p>
+
+        <h2>Layout</h2>
+        <span>Enter the expression to evaluate in the larger box. Press <code>Calculate</code> to evaluate the expression; the result will be displayed in the smaller box below, or an error will be displayed.</span>
+        <span>There are two smaller boxes next to the button - the first one is which base the expression is in, and the latter is
+        whhat base to display the result as.</span>
+
+        <h2>Literals</h2>
+        <span>Literals refer to any number in the expression. Literals start with <code>[0-9]</code> and may contain <code>[0-9a-zA-Z]</code>, regardless of the base. They may be negated using <code>-</code> immediatley preceding the literal and may contain one decimal point.
+        <br>
+        For example: <code>0a</code> is valid, but <code>a</code> is not.</span>
+        <span>The base characters are, in ascending order, <code>0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</code></span>
+
+        <h2>Operations</h2>
+        <span>The following operations are supported:</span>
+        <ul>
+            <ol><code>a + b</code> - addition. Adds <code>a</code> and <code>b</code>.</ol>
+            <ol><code>a - b</code> - subtraction. Subtracts <code>b</code> from <code>a</code>.</ol>
+            <ol><code>a * b</code> - multiplication. Multiplies <code>a</code> by <code>b</code>.</ol>
+            <ol><code>a / b</code> - division. Divides <code>a</code> by <code>b</code>.</ol>
+            <ol><code>a % b</code> - modulus. Calculates the remainder when dividing <code>a</code> by <code>b</code>.</ol>
+            <ol><code>a ^ b</code> - exponent. Raises <code>a</code> to the power of <code>b</code>.</ol>
+        </ul>
+
+        Brackets may be used to denote order of operations.
+
+        <h2>Variables</h2>
+        <span>Variables are strings of <code>[A-Za-z_\$]</code> which represent numerical values. Variables may be set/defined using the equals operator e.g., <code>a = 4</code>, which returns the value on the rhs.</span>
+
+        <h2>Functions</h2>
+        <span>Functions may be called be precefing the name with brackets which contain the function arguments. E.g.,
+        <code>sin(1 + pi)</code></span>
+    </main>
+</body>
+</html>

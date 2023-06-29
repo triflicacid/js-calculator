@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <textarea id="input" cols="50" rows="10" placeholder="Enter calculation here" class="input"></textarea>
+        <p>
+            <button id="button">Calculate</button>
+            <span>in base</span>
+            <input type="number" class="input base" id="base-in" min="2" value="10">
+            <span>to base</span>
+            <input type="number" class="input base" id="base-out" min="2" value="10">
+        </p>
+        <div id="output" class="input"></div>
+        <em><a href="help.html" target="_blank">Help</a></em>
+
+        <script src="main.js" charset="utf-8"></script>
+    </main>
+</body>
+</html>
